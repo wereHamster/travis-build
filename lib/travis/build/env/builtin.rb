@@ -37,6 +37,8 @@ module Travis
               TRAVIS_OS_NAME:         config[:os],
               TRAVIS_LANGUAGE:        config[:language],
               TRAVIS_TAG:             job[:tag],
+              TRAVIS_PR_SOURCE_REPO:  pull_request[:head][:repo][:full_name],
+              TRAVIS_PR_SORUCE_BRANCH: pull_request[:ref],
             }
           end
       end
