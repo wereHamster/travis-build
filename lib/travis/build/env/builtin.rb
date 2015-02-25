@@ -18,7 +18,7 @@ module Travis
         private
 
           def env_vars
-            {
+            env = {
               TRAVIS:                 true,
               CI:                     true,
               CONTINUOUS_INTEGRATION: true,
@@ -37,9 +37,17 @@ module Travis
               TRAVIS_OS_NAME:         config[:os],
               TRAVIS_LANGUAGE:        config[:language],
               TRAVIS_TAG:             job[:tag],
-              TRAVIS_PR_SOURCE_REPO:  pull_request[:head][:repo][:full_name],
-              TRAVIS_PR_SORUCE_BRANCH: pull_request[:ref],
             }
+
+            if pull_request
+              puts pull_request.inspect
+              env.merge! {
+                TRAVIS_PR_SOURCE_REPO:   pull_request[:head][:repo][:full_name],
+                TRAVIS_PR_SORUCE_BRANCH: pull_request[:ref],
+              }
+            end
+
+            env
           end
       end
     end
