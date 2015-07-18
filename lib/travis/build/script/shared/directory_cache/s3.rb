@@ -100,7 +100,7 @@ module Travis
               urls << Shellwords.escape(fetch_url('master', '.tgz').to_s)
               urls << Shellwords.escape(fetch_url('master').to_s)
             end
-            run('fetch', urls, timing: true)
+            run('fetch', urls, timing: true, echo: 'Fetching cache', assert: false)
           end
 
           def push
@@ -134,7 +134,7 @@ module Travis
 
             def run(command, args, options = {})
               sh.if "-f #{BIN_PATH}" do
-                sh.cmd "rvm #{USE_RUBY} --fuzzy do #{BIN_PATH} #{command} #{Array(args).join(' ')}", options.merge(echo: false)
+                sh.cmd "rvm #{USE_RUBY} --fuzzy do #{BIN_PATH} #{command} #{Array(args).join(' ')}", {echo: false}.merge(options)
               end
             end
 
