@@ -85,6 +85,11 @@ describe Travis::Build::Script::DirectoryCache::S3, :sexp do
     it { should include_sexp [:cmd, "rvm 1.9.3 --fuzzy do $CASHER_DIR/bin/casher fetch #{fetch_url_tgz} #{fetch_url}", timing: true, echo: 'Fetching cache'] }
   end
 
+  describe 'setup' do
+    before { cache.setup }
+    it { should include_sexp [:export, ['CACHE_FETCH_EXIT_STATUS', '$?']] }
+  end
+
   describe 'add' do
     before { cache.add('/foo/bar') }
     it { should include_sexp [:cmd, 'rvm 1.9.3 --fuzzy do $CASHER_DIR/bin/casher add /foo/bar'] }

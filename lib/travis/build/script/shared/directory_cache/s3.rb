@@ -65,6 +65,7 @@ module Travis
             fold 'Setting up build cache' do
               install
               fetch
+              sh.export 'CACHE_FETCH_EXIT_STATUS', '$?', echo: false
               add(directories) if data.cache?(:directories)
             end
           end
