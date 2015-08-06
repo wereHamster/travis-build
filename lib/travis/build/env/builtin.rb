@@ -8,7 +8,21 @@ module Travis
         def_delegators :data, :build, :job, :repository, :pull_request
 
         def vars
-          puts data.data.keys
+          puts data[:config]
+          puts data[:type]
+          puts data[:build]
+          puts data[:job]
+          puts data[:source]
+          puts data[:repository]
+          puts data[:queue]
+          puts data[:ssh_key]
+          puts data[:env_vars]
+          puts data[:timeouts]
+          puts data[:hosts]
+          puts data[:paranoid]
+          puts data[:skip_resolv_updates]
+          puts data[:skip_etc_hosts_fix]
+          puts data[:cache_options]
 
           env_vars.map do |key, value|
             value = value.to_s.shellescape
