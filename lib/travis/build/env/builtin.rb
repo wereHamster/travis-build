@@ -8,6 +8,7 @@ module Travis
         def_delegators :data, :build, :job, :repository, :pull_request
 
         def vars
+          puts job
           env_vars.map do |key, value|
             value = value.to_s.shellescape
             value = [BUILD_DIR, value].join('/') if key == :TRAVIS_BUILD_DIR
@@ -37,8 +38,8 @@ module Travis
               TRAVIS_OS_NAME:         config[:os],
               TRAVIS_LANGUAGE:        config[:language],
               TRAVIS_TAG:             job[:tag],
-              TRAVIS_PR_SOURCE_REPO:   pull_request[:head][:repo][:full_name],
-              TRAVIS_PR_SOURCE_BRANCH: pull_request[:head][:ref],
+              TRAVIS_PR_SOURCE_REPO:   data[:head][:repo][:full_name],
+              TRAVIS_PR_SOURCE_BRANCH: data[:head][:ref],
             }
           end
       end
